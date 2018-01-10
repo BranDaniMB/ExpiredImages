@@ -6,7 +6,7 @@
  * 
  * License: CC-BY-SA - http://creativecommons.org/licenses/by-sa/3.0/
 **/
-$(document).ready(function () {
+$(window).load(function() {
     // Check namespace
     if (mediaWiki.config.get('wgNamespaceNumber') === 6) {
         // Create list of image categories
