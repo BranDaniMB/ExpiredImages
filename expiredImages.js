@@ -31,7 +31,7 @@ $(window).load(function() {
             }
             // it replaces <expiryDays> with its value in ExpiredImages.expiryDays and ExpiredImages.nonExpiryMessage
             ExpiredImages.expiryMessage = ExpiredImages.expiryMessage.replace(/<expiryDays>/g, ExpiredImages.expiryDays);
-            ExpiredImages.nonExpiryMessage = ExpiredImages.nonExpiryMessage.replace(/<expiryDays>/g, ExpiredImages.nonExpiryDays);
+            ExpiredImages.nonExpiryMessage = ExpiredImages.nonExpiryMessage.replace(/<expiryDays>/g, ExpiredImages.expiryDays);
 
             var wgCategories = mw.config.get('wgCategories'),
                 wgArticleId = mw.config.get("wgArticleId"),
