@@ -31,26 +31,29 @@ $(window).load(function() {
             }
             // it replaces <expiryDays> with its value in ExpiredImages.expiryDays and ExpiredImages.nonExpiryMessage
             ExpiredImages.expiryMessage = ExpiredImages.expiryMessage.replace(/<expiryDays>/g, ExpiredImages.expiryDays);
-            ExpiredImages.nonExpiryMessage = ExpiredImages.expiryMessage.replace(/<expiryDays>/g, ExpiredImages.expiryDays);
+            ExpiredImages.nonExpiryMessage = ExpiredImages.nonExpiryMessage.replace(/<expiryDays>/g, ExpiredImages.nonExpiryDays);
 
             var wgCategories = mw.config.get('wgCategories'),
                 wgArticleId = mw.config.get("wgArticleId"),
                 url,
                 expired,
                 expiryMilliseconds,
-                diffMilliseconds;
+                diffMilliseconds,
+                msecPerDay = 86400000;
 
             // Check the time since image upload
             url = "/api.php?action=query&format=json&prop=info&inprop=created&pageids=" + wgArticleId;
             $.getJSON(url, function (data) {
                 try {
                     var created = data.query.pages[wgArticleId].created; // e.g. 2010-09-29T01:47:30Z
-                    expiryMilliseconds = ExpiredImages.expiryDays * 24 * 60 * 60 * 1000;
+                    expiryMilliseconds = msecPerDay * ExpiredImages.expiryDays;
                     diffMilliseconds = new Date().getTime() - new Date(created).getTime();
                     expired = diffMilliseconds > expiryMilliseconds;
                     if (expired) {
+                        console.log("Expired-" + expired + "\n" + ExpiredImages.expiryMessage);
                         alert(ExpiredImages.expiryMessage);
                     } else {
+                        console.log("Expired-" + expired + "\n" + ExpiredImages.nonExpiryMessage);
                         alert(ExpiredImages.nonExpiryMessage);
                     }
                 } catch (e) {
